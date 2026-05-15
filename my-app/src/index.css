@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap");
+@import "mapbox-gl/dist/mapbox-gl.css";
+
+body {
+  background: #080c0f;
+  color: #e8eef2;
+  font-family: "DM Mono", monospace;
+  overflow: hidden;
+}
+
+/* Mapbox logo/attribution nhỏ lại */
+.mapboxgl-ctrl-logo {
+  opacity: 0.3 !important;
+}
+.mapboxgl-ctrl-attrib {
+  font-size: 9px !important;
+  opacity: 0.4 !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #222e38;
+  border-radius: 2px;
+}
