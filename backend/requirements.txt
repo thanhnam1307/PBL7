@@ -1,0 +1,15 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+pydantic-settings==2.7.1
+python-multipart==0.0.20
+earthengine-api==1.7.26
+requests==2.32.3
+pillow==11.1.0
+numpy==1.26.4
+torch==2.2.2
+torchvision==0.17.2
+segmentation-models-pytorch==0.3.4
+rasterio==1.4.3
+pytest==8.3.4
+httpx==0.28.1

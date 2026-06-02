@@ -1,0 +1,38 @@
+.env
+.env.*
+!.env.example
+!**/.env.sample
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+node_modules/
+build/
+dist/
+coverage/
+
+# Local AI/model artifacts. Put the active checkpoint at
+# backend/models/land_classification_model.pth manually.
+*.pth
+*.pt
+*.onnx
+backend/models/*
+!backend/models/.gitkeep
+Train_model/*.pth
+
+# Local databases and generated files.
+*.db
+*.sqlite
+*.sqlite3
+backend/.venv/
+backend/app.db
+backend/.env
+backend/backend/
+backend/uploads/*
+backend/outputs/*
+!backend/uploads/.gitkeep
+!backend/outputs/.gitkeep
+frontend/node_modules/
+frontend/build/
+frontend/.env
