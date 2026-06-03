@@ -26,7 +26,9 @@ export default function LegendGrid() {
               className="w-2.5 h-2.5 rounded-[3px] shrink-0"
               style={{ background: cls.color }}
             />
-            <span className="text-[11px] text-white/70">{t(`mapViewer.landClassLabels.${cls.id}`)}</span>
+            <span className="text-[11px] text-white/70">
+              {t(`mapViewer.landClassLabels.${cls.id}`)}
+            </span>
           </button>
         );
       })}

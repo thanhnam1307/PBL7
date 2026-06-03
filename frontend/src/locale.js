@@ -105,7 +105,8 @@ const TRANSLATIONS = {
       legend: "Legend",
       hidden: "Hidden",
       noClasses: "No classes selected",
-      aiLegendNote: "AI overlay shows predicted land classes for selected region.",
+      aiLegendNote:
+        "AI overlay shows predicted land classes for selected region.",
       enableLayerHint: "Enable a layer from the controls to preview map data.",
       on: "On",
       off: "Off",
@@ -296,7 +297,8 @@ export function LocaleProvider({ children }) {
     window.localStorage.setItem("app_locale", locale);
   }, [locale]);
 
-  const toggleLocale = () => setLocale((current) => (current === "en" ? "vi" : "en"));
+  const toggleLocale = () =>
+    setLocale((current) => (current === "en" ? "vi" : "en"));
 
   const t = useMemo(
     () => (key) => {

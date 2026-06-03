@@ -1,5 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import ReactMapGL, { Layer, NavigationControl, Source } from "react-map-gl/mapbox";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import ReactMapGL, {
+  Layer,
+  NavigationControl,
+  Source,
+} from "react-map-gl/mapbox";
 import CoordinatesBar from "./CoordinatesBar";
 import { getLandCoverLayer } from "../api/satelliteApi";
 import { absoluteApiUrl } from "../api/http";
@@ -219,7 +229,11 @@ export default function MapViewer({ compact = false, panelLayout }) {
               tiles={[landCoverLayer.tileTemplate]}
               tileSize={256}
             >
-              <Layer id="land-cover-overlay" type="raster" paint={overlayPaint} />
+              <Layer
+                id="land-cover-overlay"
+                type="raster"
+                paint={overlayPaint}
+              />
             </Source>
           )}
           {showAiResult && predictionImageUrl && (
@@ -229,11 +243,19 @@ export default function MapViewer({ compact = false, panelLayout }) {
               url={predictionImageUrl}
               coordinates={predictionCoordinates}
             >
-              <Layer id="prediction-result-overlay" type="raster" paint={overlayPaint} />
+              <Layer
+                id="prediction-result-overlay"
+                type="raster"
+                paint={overlayPaint}
+              />
             </Source>
           )}
           {showSelectedBbox && (
-            <Source id="selected-region-source" type="geojson" data={selectedRegionGeoJson}>
+            <Source
+              id="selected-region-source"
+              type="geojson"
+              data={selectedRegionGeoJson}
+            >
               <Layer
                 id="selected-region-fill"
                 type="fill"
@@ -242,12 +264,20 @@ export default function MapViewer({ compact = false, panelLayout }) {
               <Layer
                 id="selected-region-line"
                 type="line"
-                paint={{ "line-color": "#fbbf24", "line-width": 2, "line-opacity": 0.9 }}
+                paint={{
+                  "line-color": "#fbbf24",
+                  "line-width": 2,
+                  "line-opacity": 0.9,
+                }}
               />
             </Source>
           )}
           {draftBbox && (
-            <Source id="draft-region-source" type="geojson" data={bboxToFeatureCollection(draftBbox)}>
+            <Source
+              id="draft-region-source"
+              type="geojson"
+              data={bboxToFeatureCollection(draftBbox)}
+            >
               <Layer
                 id="draft-region-fill"
                 type="fill"
@@ -256,7 +286,12 @@ export default function MapViewer({ compact = false, panelLayout }) {
               <Layer
                 id="draft-region-line"
                 type="line"
-                paint={{ "line-color": "#f59e0b", "line-width": 2, "line-opacity": 0.8, "line-dasharray": [2, 2] }}
+                paint={{
+                  "line-color": "#f59e0b",
+                  "line-width": 2,
+                  "line-opacity": 0.8,
+                  "line-dasharray": [2, 2],
+                }}
               />
             </Source>
           )}
@@ -269,21 +304,30 @@ export default function MapViewer({ compact = false, panelLayout }) {
       {!compact && <CoordinatesBar />}
       {isSelectingRegion && (
         <div className="absolute left-4 top-4 rounded-md border border-amber-300/30 bg-bg-2/90 px-3 py-2 text-[11px] text-amber-100">
-          {selectionStart ? t("mapViewer.selectionFinish") : t("mapViewer.selectionStart")}
+          {selectionStart
+            ? t("mapViewer.selectionFinish")
+            : t("mapViewer.selectionStart")}
         </div>
       )}
       {isSelectingRegion && hoverPoint && (
         <div className="absolute left-4 top-20 rounded-md border border-slate-700/60 bg-slate-950/90 px-3 py-2 text-[11px] text-slate-100 shadow-lg shadow-black/20">
-          <div className="mb-1 text-xs uppercase tracking-[0.2em] text-slate-400">{t("mapViewer.selectionTooltip")}</div>
+          <div className="mb-1 text-xs uppercase tracking-[0.2em] text-slate-400">
+            {t("mapViewer.selectionTooltip")}
+          </div>
           <div className="grid grid-cols-2 gap-2 text-[11px]">
             <div className="rounded bg-slate-900/80 px-2 py-1">
               <div className="text-slate-400">{t("mapViewer.current")}</div>
-              <div>{hoverPoint.lat.toFixed(4)}, {hoverPoint.lon.toFixed(4)}</div>
+              <div>
+                {hoverPoint.lat.toFixed(4)}, {hoverPoint.lon.toFixed(4)}
+              </div>
             </div>
             {selectionStart ? (
               <div className="rounded bg-slate-900/80 px-2 py-1">
                 <div className="text-slate-400">{t("mapViewer.start")}</div>
-                <div>{selectionStart.lat.toFixed(4)}, {selectionStart.lon.toFixed(4)}</div>
+                <div>
+                  {selectionStart.lat.toFixed(4)},{" "}
+                  {selectionStart.lon.toFixed(4)}
+                </div>
               </div>
             ) : null}
           </div>
@@ -308,13 +352,15 @@ function bboxToFeatureCollection(bbox) {
         properties: {},
         geometry: {
           type: "Polygon",
-          coordinates: [[
-            [bbox.west, bbox.south],
-            [bbox.east, bbox.south],
-            [bbox.east, bbox.north],
-            [bbox.west, bbox.north],
-            [bbox.west, bbox.south],
-          ]],
+          coordinates: [
+            [
+              [bbox.west, bbox.south],
+              [bbox.east, bbox.south],
+              [bbox.east, bbox.north],
+              [bbox.west, bbox.north],
+              [bbox.west, bbox.south],
+            ],
+          ],
         },
       },
     ],

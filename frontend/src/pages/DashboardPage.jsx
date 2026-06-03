@@ -9,8 +9,12 @@ export default function DashboardPage({ onNavigate }) {
     <div className="grid h-full grid-cols-[1fr_360px] overflow-hidden">
       <section className="overflow-y-auto p-6">
         <div className="mb-6">
-          <h1 className="font-display text-2xl font-bold text-white">{t("dashboard.title")}</h1>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-white/55">{t("dashboard.subtitle")}</p>
+          <h1 className="font-display text-2xl font-bold text-white">
+            {t("dashboard.title")}
+          </h1>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-white/55">
+            {t("dashboard.subtitle")}
+          </p>
         </div>
         <div className="grid grid-cols-4 gap-3">
           {[
@@ -19,9 +23,16 @@ export default function DashboardPage({ onNavigate }) {
             [t("dashboard.stats.backend"), "FastAPI"],
             [t("dashboard.stats.storage"), "SQLite"],
           ].map(([label, value]) => (
-            <div key={label} className="rounded-md border border-white/10 bg-bg-2 p-4">
-              <div className="text-[10px] uppercase tracking-widest text-white/30">{label}</div>
-              <div className="mt-2 font-display text-xl font-bold text-white">{value}</div>
+            <div
+              key={label}
+              className="rounded-md border border-white/10 bg-bg-2 p-4"
+            >
+              <div className="text-[10px] uppercase tracking-widest text-white/30">
+                {label}
+              </div>
+              <div className="mt-2 font-display text-xl font-bold text-white">
+                {value}
+              </div>
             </div>
           ))}
         </div>
@@ -42,7 +53,9 @@ export default function DashboardPage({ onNavigate }) {
           </button>
         </div>
         <div className="mt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-white">{t("dashboard.recentAnalyses")}</h2>
+          <h2 className="mb-3 font-display text-lg font-bold text-white">
+            {t("dashboard.recentAnalyses")}
+          </h2>
           <HistoryTable />
         </div>
       </section>

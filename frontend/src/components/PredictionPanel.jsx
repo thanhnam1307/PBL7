@@ -21,10 +21,22 @@ export default function PredictionPanel() {
   const { t } = useLocale();
 
   const predictionSteps = [
-    { label: t("predictionPanel.steps.selectRegion"), active: isSelectingRegion || status === "idle" },
-    { label: t("predictionPanel.steps.adjustFilters"), active: !isSelectingRegion },
-    { label: t("predictionPanel.steps.runAnalysis"), active: status === "loading" },
-    { label: t("predictionPanel.steps.reviewResult"), active: status === "success" },
+    {
+      label: t("predictionPanel.steps.selectRegion"),
+      active: isSelectingRegion || status === "idle",
+    },
+    {
+      label: t("predictionPanel.steps.adjustFilters"),
+      active: !isSelectingRegion,
+    },
+    {
+      label: t("predictionPanel.steps.runAnalysis"),
+      active: status === "loading",
+    },
+    {
+      label: t("predictionPanel.steps.reviewResult"),
+      active: status === "success",
+    },
   ];
 
   async function handlePredict() {
@@ -50,7 +62,9 @@ export default function PredictionPanel() {
 
   return (
     <section className="space-y-3">
-      <h2 className="font-display text-lg font-bold text-white">{t("predictionPanel.title")}</h2>
+      <h2 className="font-display text-lg font-bold text-white">
+        {t("predictionPanel.title")}
+      </h2>
       <div className="rounded-md border border-white/10 bg-bg p-3">
         <button
           type="button"
@@ -59,12 +73,19 @@ export default function PredictionPanel() {
             isSelectingRegion ? "bg-accent text-bg" : "bg-surface text-white"
           }`}
         >
-          {isSelectingRegion ? t("predictionPanel.selectRegion") : t("predictionPanel.selectRegion")}
+          {isSelectingRegion
+            ? t("predictionPanel.selectRegion")
+            : t("predictionPanel.selectRegion")}
         </button>
         <button
           type="button"
           onClick={() =>
-            setSelectedBbox({ west: 107.9, south: 15.9, east: 108.25, north: 16.15 })
+            setSelectedBbox({
+              west: 107.9,
+              south: 15.9,
+              east: 108.25,
+              north: 16.15,
+            })
           }
           className="mt-2 w-full rounded-md border border-white/10 px-3 py-2 text-[12px] text-white/65"
         >
@@ -79,15 +100,25 @@ export default function PredictionPanel() {
           ))}
         </div>
         <div className="mt-3 rounded-md border border-white/10 bg-slate-900/70 p-3 text-[11px] text-white/70">
-          <div className="mb-2 text-[12px] font-semibold text-white">{t("predictionPanel.title")}</div>
+          <div className="mb-2 text-[12px] font-semibold text-white">
+            {t("predictionPanel.title")}
+          </div>
           <div className="space-y-2">
             {predictionSteps.map((step, index) => (
               <div key={step.label} className="flex items-center gap-3">
-                <span className={`h-3 w-3 rounded-full ${step.active ? "bg-accent" : "bg-slate-600"}`} />
+                <span
+                  className={`h-3 w-3 rounded-full ${step.active ? "bg-accent" : "bg-slate-600"}`}
+                />
                 <div>
-                  <div className={`font-medium ${step.active ? "text-white" : "text-white/40"}`}>{index + 1}. {step.label}</div>
+                  <div
+                    className={`font-medium ${step.active ? "text-white" : "text-white/40"}`}
+                  >
+                    {index + 1}. {step.label}
+                  </div>
                   <div className="text-[10px] text-white/30">
-                    {step.active ? t("predictionPanel.current") : t("predictionPanel.waiting")}
+                    {step.active
+                      ? t("predictionPanel.current")
+                      : t("predictionPanel.waiting")}
                   </div>
                 </div>
               </div>
@@ -156,10 +187,20 @@ export default function PredictionPanel() {
         disabled={status === "loading"}
         className="w-full rounded-md border border-accent/35 bg-accent/10 px-3 py-2 text-[12px] font-semibold text-accent disabled:opacity-50"
       >
-        {status === "loading" ? t("predictionPanel.running") : t("predictionPanel.runAnalysis")}
+        {status === "loading"
+          ? t("predictionPanel.running")
+          : t("predictionPanel.runAnalysis")}
       </button>
-      {status === "success" && <p className="text-[12px] text-accent">{t("predictionPanel.success")}</p>}
-      {error && <p role="alert" className="text-[12px] text-red-300">{error}</p>}
+      {status === "success" && (
+        <p className="text-[12px] text-accent">
+          {t("predictionPanel.success")}
+        </p>
+      )}
+      {error && (
+        <p role="alert" className="text-[12px] text-red-300">
+          {error}
+        </p>
+      )}
     </section>
   );
 }

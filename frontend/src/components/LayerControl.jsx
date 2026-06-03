@@ -28,7 +28,7 @@ export default function LayerControl() {
   return (
     <aside className="w-80 bg-bg-2 border-l border-white/10 overflow-y-auto">
       <PanelTitle title={t("layerControl.title")} />
-      <Section label={t("layerControl.mode")}> 
+      <Section label={t("layerControl.mode")}>
         <div className="grid grid-cols-2 gap-1">
           {[
             { id: "AI Prediction", label: t("layerControl.aiPrediction") },
@@ -81,7 +81,9 @@ export default function LayerControl() {
               type="button"
               onClick={() => setBasemap(item)}
               className={`rounded-md px-2 py-2 text-[11px] capitalize ${
-                basemap === item ? "bg-surface text-white" : "bg-bg text-white/45"
+                basemap === item
+                  ? "bg-surface text-white"
+                  : "bg-bg text-white/45"
               }`}
             >
               {item}
@@ -99,11 +101,18 @@ export default function LayerControl() {
                 type="button"
                 onClick={() => toggleClass(item.id)}
                 className={`flex items-center gap-2 rounded-md border px-2 py-1.5 text-left ${
-                  active ? "border-white/20 bg-bg text-white/75" : "border-white/10 bg-bg text-white/30"
+                  active
+                    ? "border-white/20 bg-bg text-white/75"
+                    : "border-white/10 bg-bg text-white/30"
                 }`}
               >
-                <span className="h-2.5 w-2.5 rounded-sm" style={{ background: item.color }} />
-                <span className="text-[11px]">{t(`mapViewer.landClassLabels.${item.id}`)}</span>
+                <span
+                  className="h-2.5 w-2.5 rounded-sm"
+                  style={{ background: item.color }}
+                />
+                <span className="text-[11px]">
+                  {t(`mapViewer.landClassLabels.${item.id}`)}
+                </span>
               </button>
             );
           })}
@@ -112,9 +121,17 @@ export default function LayerControl() {
       <Section label={t("layerControl.aiClasses")}>
         <div className="grid grid-cols-2 gap-1">
           {AI_LAND_CLASSES.map((item) => (
-            <div key={item.id} className="flex items-center gap-2 rounded-md bg-bg px-2 py-1.5">
-              <span className="h-2.5 w-2.5 rounded-sm" style={{ background: item.color }} />
-              <span className="text-[11px] text-white/65">{t(`mapViewer.aiClassLabels.${item.id}`)}</span>
+            <div
+              key={item.id}
+              className="flex items-center gap-2 rounded-md bg-bg px-2 py-1.5"
+            >
+              <span
+                className="h-2.5 w-2.5 rounded-sm"
+                style={{ background: item.color }}
+              />
+              <span className="text-[11px] text-white/65">
+                {t(`mapViewer.aiClassLabels.${item.id}`)}
+              </span>
             </div>
           ))}
         </div>
@@ -130,8 +147,7 @@ export default function LayerControl() {
         />
         <div className="mt-1 text-[11px] text-white/45">{year}</div>
       </Section>
-      <Section label={t("layerControl.overlayOpacity")}
-      >
+      <Section label={t("layerControl.overlayOpacity")}>
         <input
           type="range"
           min={0}
@@ -146,7 +162,9 @@ export default function LayerControl() {
         <div className="mt-3 flex gap-2">
           <button
             type="button"
-            onClick={() => setActiveClasses(LAND_CLASSES.map((item) => item.id))}
+            onClick={() =>
+              setActiveClasses(LAND_CLASSES.map((item) => item.id))
+            }
             className="flex-1 rounded-md border border-white/10 bg-bg px-3 py-2 text-[11px] text-white/75 transition hover:bg-white/5"
           >
             {t("layerControl.selectAll")}
@@ -175,7 +193,11 @@ function PanelTitle({ title }) {
 function Section({ label, children }) {
   return (
     <section className="space-y-2 border-b border-white/5 px-5 py-4">
-      {label ? <div className="text-[10px] uppercase tracking-widest text-white/30">{label}</div> : null}
+      {label ? (
+        <div className="text-[10px] uppercase tracking-widest text-white/30">
+          {label}
+        </div>
+      ) : null}
       {children}
     </section>
   );

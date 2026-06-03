@@ -46,9 +46,11 @@ export const useMapStore = create((set) => ({
     north: 16.15,
   },
   showSelectedBbox: false,
-  setSelectedBbox: (bbox) => set({ selectedBbox: bbox, showSelectedBbox: true }),
+  setSelectedBbox: (bbox) =>
+    set({ selectedBbox: bbox, showSelectedBbox: true }),
   isSelectingRegion: false,
-  setIsSelectingRegion: (value) => set({ isSelectingRegion: value, selectionStart: value ? null : undefined }),
+  setIsSelectingRegion: (value) =>
+    set({ isSelectingRegion: value, selectionStart: value ? null : undefined }),
   selectionStart: null,
   setSelectionStart: (point) => set({ selectionStart: point }),
 
