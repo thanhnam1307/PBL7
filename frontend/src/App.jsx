@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { LocaleProvider } from "./locale";
 import MainLayout from "./layouts/MainLayout";
 import DashboardPage from "./pages/DashboardPage";
 import HistoryPage from "./pages/HistoryPage";
@@ -22,8 +23,10 @@ export default function App() {
   };
 
   return (
-    <MainLayout activePage={activePage} onNavigate={setActivePage}>
-      {pages[activePage] || pages.dashboard}
-    </MainLayout>
+    <LocaleProvider>
+      <MainLayout activePage={activePage} onNavigate={setActivePage}>
+        {pages[activePage] || pages.dashboard}
+      </MainLayout>
+    </LocaleProvider>
   );
 }

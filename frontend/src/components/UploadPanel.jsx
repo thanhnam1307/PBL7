@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { uploadRaster } from "../api/predictionApi";
 import { useMapStore } from "../hooks/useMapStore";
+import { useLocale } from "../locale";
 
 export default function UploadPanel() {
   const inputRef = useRef(null);
@@ -8,10 +9,11 @@ export default function UploadPanel() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const { t } = useLocale();
 
   async function handleUpload() {
     if (!selectedFile) {
-      setError("Choose a raster or image file first.");
+      setError(t("predictionPanel.chooseFile"));
       return;
     }
 
@@ -29,7 +31,7 @@ export default function UploadPanel() {
 
   return (
     <section className="space-y-3">
-      <h2 className="font-display text-lg font-bold text-white">Upload Raster</h2>
+      <h2 className="font-display text-lg font-bold text-white">{t("uploadPanel.title")}</h2>
       <div className="rounded-md border border-dashed border-white/15 bg-bg p-4">
         <input
           ref={inputRef}
@@ -43,10 +45,10 @@ export default function UploadPanel() {
           onClick={() => inputRef.current?.click()}
           className="rounded-md bg-surface px-3 py-2 text-[12px] text-white"
         >
-          Select File
+          {t("uploadPanel.selectFile")}
         </button>
         <div className="mt-3 text-[12px] text-white/55">
-          {selectedFile ? selectedFile.name : "GeoTIFF, TIFF, PNG, or JPG"}
+          {selectedFile ? selectedFile.name : t("uploadPanel.fileHint")}
         </div>
       </div>
       <button
@@ -55,9 +57,9 @@ export default function UploadPanel() {
         disabled={status === "loading"}
         className="w-full rounded-md bg-accent px-3 py-2 text-[12px] font-semibold text-bg disabled:opacity-50"
       >
-        {status === "loading" ? "Running AI..." : "Run Upload Prediction"}
+        {status === "loading" ? t("uploadPanel.running") : t("uploadPanel.run")}
       </button>
-      {status === "success" && <p className="text-[12px] text-accent">Prediction completed.</p>}
+      {status === "success" && <p className="text-[12px] text-accent">{t("uploadPanel.success")}</p>}
       {error && <p role="alert" className="text-[12px] text-red-300">{error}</p>}
     </section>
   );

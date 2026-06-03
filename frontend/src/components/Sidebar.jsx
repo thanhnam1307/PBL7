@@ -3,6 +3,7 @@ import LegendGrid from "./LegendGrid";
 import StatsCards from "./StatsCards";
 import { LAND_CLASSES } from "../constants/landClasses";
 import { AI_LAND_CLASSES } from "../constants/aiLandClasses";
+import { useLocale } from "../locale";
 
 const LAYERS = [
   "AI model (temp)",
@@ -266,6 +267,8 @@ function Section({ label, children }) {
 }
 
 function AiLegend() {
+  const { t } = useLocale();
+
   return (
     <div className="grid grid-cols-2 gap-1">
       {AI_LAND_CLASSES.map((cls) => (
@@ -278,7 +281,7 @@ function AiLegend() {
             className="w-2.5 h-2.5 rounded-[3px] shrink-0"
             style={{ background: cls.color }}
           />
-          <span className="text-[11px] text-white/70">{cls.label}</span>
+          <span className="text-[11px] text-white/70">{t(`mapViewer.aiClassLabels.${cls.id}`)}</span>
         </div>
       ))}
     </div>

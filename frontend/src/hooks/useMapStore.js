@@ -14,6 +14,7 @@ export const useMapStore = create((set) => ({
         ? state.activeClasses.filter((c) => c !== id)
         : [...state.activeClasses, id],
     })),
+  setActiveClasses: (classes) => set({ activeClasses: classes }),
 
   // Year
   year: 2024,

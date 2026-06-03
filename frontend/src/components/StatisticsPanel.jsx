@@ -1,17 +1,19 @@
 import { absoluteApiUrl } from "../api/http";
 import { useMapStore } from "../hooks/useMapStore";
+import { useLocale } from "../locale";
 
 export default function StatisticsPanel() {
   const { predictionResult } = useMapStore();
+  const { t } = useLocale();
   const stats = predictionResult?.statistics || [];
   const tiling = predictionResult?.source_metadata?.tiling;
 
   return (
     <section className="space-y-3">
-      <h2 className="font-display text-lg font-bold text-white">Land Statistics</h2>
+      <h2 className="font-display text-lg font-bold text-white">{t("statisticsPanel.title")}</h2>
       {!stats.length ? (
         <div className="rounded-md border border-white/10 bg-bg px-3 py-3 text-[12px] text-white/45">
-          No prediction result yet.
+          {t("statisticsPanel.noResult")}
         </div>
       ) : (
         <div className="space-y-3">
@@ -29,7 +31,7 @@ export default function StatisticsPanel() {
           {tiling && (
             <div className="rounded-md border border-white/10 bg-bg px-3 py-2 text-[11px] text-white/50">
               <div className="text-[10px] uppercase tracking-widest text-white/25">
-                Tiling
+                {t("statisticsPanel.tiling")}
               </div>
               <div className="mt-1">
                 {tiling.tile_count} tiles · {tiling.tile_size_m}m x {tiling.tile_size_m}m

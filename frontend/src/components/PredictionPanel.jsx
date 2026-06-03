@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { predictRegion } from "../api/predictionApi";
 import { useMapStore } from "../hooks/useMapStore";
+import { useLocale } from "../locale";
 
 export default function PredictionPanel() {
   const {
@@ -17,6 +18,14 @@ export default function PredictionPanel() {
   const [imageSize, setImageSize] = useState(4096);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const { t } = useLocale();
+
+  const predictionSteps = [
+    { label: t("predictionPanel.steps.selectRegion"), active: isSelectingRegion || status === "idle" },
+    { label: t("predictionPanel.steps.adjustFilters"), active: !isSelectingRegion },
+    { label: t("predictionPanel.steps.runAnalysis"), active: status === "loading" },
+    { label: t("predictionPanel.steps.reviewResult"), active: status === "success" },
+  ];
 
   async function handlePredict() {
     setStatus("loading");
@@ -41,7 +50,7 @@ export default function PredictionPanel() {
 
   return (
     <section className="space-y-3">
-      <h2 className="font-display text-lg font-bold text-white">Region Prediction</h2>
+      <h2 className="font-display text-lg font-bold text-white">{t("predictionPanel.title")}</h2>
       <div className="rounded-md border border-white/10 bg-bg p-3">
         <button
           type="button"
@@ -50,7 +59,7 @@ export default function PredictionPanel() {
             isSelectingRegion ? "bg-accent text-bg" : "bg-surface text-white"
           }`}
         >
-          {isSelectingRegion ? "Click two map points" : "Select Region On Map"}
+          {isSelectingRegion ? t("predictionPanel.selectRegion") : t("predictionPanel.selectRegion")}
         </button>
         <button
           type="button"
@@ -59,7 +68,7 @@ export default function PredictionPanel() {
           }
           className="mt-2 w-full rounded-md border border-white/10 px-3 py-2 text-[12px] text-white/65"
         >
-          Use Da Nang Demo Region
+          {t("predictionPanel.useDemo")}
         </button>
         <div className="mt-3 grid grid-cols-2 gap-2 text-[11px] text-white/45">
           {Object.entries(selectedBbox).map(([key, value]) => (
@@ -69,10 +78,26 @@ export default function PredictionPanel() {
             </div>
           ))}
         </div>
+        <div className="mt-3 rounded-md border border-white/10 bg-slate-900/70 p-3 text-[11px] text-white/70">
+          <div className="mb-2 text-[12px] font-semibold text-white">{t("predictionPanel.title")}</div>
+          <div className="space-y-2">
+            {predictionSteps.map((step, index) => (
+              <div key={step.label} className="flex items-center gap-3">
+                <span className={`h-3 w-3 rounded-full ${step.active ? "bg-accent" : "bg-slate-600"}`} />
+                <div>
+                  <div className={`font-medium ${step.active ? "text-white" : "text-white/40"}`}>{index + 1}. {step.label}</div>
+                  <div className="text-[10px] text-white/30">
+                    {step.active ? t("predictionPanel.current") : t("predictionPanel.waiting")}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-2">
         <label className="space-y-1 text-[11px] uppercase tracking-widest text-white/30">
-          Start
+          {t("predictionPanel.start")}
           <input
             type="date"
             value={startDate}
@@ -81,7 +106,7 @@ export default function PredictionPanel() {
           />
         </label>
         <label className="space-y-1 text-[11px] uppercase tracking-widest text-white/30">
-          End
+          {t("predictionPanel.end")}
           <input
             type="date"
             value={endDate}
@@ -90,7 +115,7 @@ export default function PredictionPanel() {
           />
         </label>
         <label className="space-y-1 text-[11px] uppercase tracking-widest text-white/30">
-          Cloud %
+          {t("predictionPanel.cloudPercent")}
           <input
             type="number"
             min={0}
@@ -101,7 +126,7 @@ export default function PredictionPanel() {
           />
         </label>
         <label className="space-y-1 text-[11px] uppercase tracking-widest text-white/30">
-          Pixel m
+          {t("predictionPanel.pixelSize")}
           <input
             type="number"
             min={1}
@@ -112,7 +137,7 @@ export default function PredictionPanel() {
           />
         </label>
         <label className="space-y-1 text-[11px] uppercase tracking-widest text-white/30">
-          Max px
+          {t("predictionPanel.maxPx")}
           <select
             value={imageSize}
             onChange={(event) => setImageSize(event.target.value)}
@@ -131,9 +156,9 @@ export default function PredictionPanel() {
         disabled={status === "loading"}
         className="w-full rounded-md border border-accent/35 bg-accent/10 px-3 py-2 text-[12px] font-semibold text-accent disabled:opacity-50"
       >
-        {status === "loading" ? "Running AI..." : "Analyze Selected Region"}
+        {status === "loading" ? t("predictionPanel.running") : t("predictionPanel.runAnalysis")}
       </button>
-      {status === "success" && <p className="text-[12px] text-accent">Region analysis completed.</p>}
+      {status === "success" && <p className="text-[12px] text-accent">{t("predictionPanel.success")}</p>}
       {error && <p role="alert" className="text-[12px] text-red-300">{error}</p>}
     </section>
   );

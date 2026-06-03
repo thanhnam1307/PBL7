@@ -1,11 +1,15 @@
+import { useLocale } from "../locale";
+
 const NAV_ITEMS = [
-  { id: "dashboard", label: "Dashboard" },
-  { id: "map", label: "Map" },
-  { id: "prediction", label: "Prediction" },
-  { id: "history", label: "History" },
+  { id: "dashboard", key: "nav.dashboard" },
+  { id: "map", key: "nav.map" },
+  { id: "prediction", key: "nav.prediction" },
+  { id: "history", key: "nav.history" },
 ];
 
 export default function MainLayout({ activePage, onNavigate, children }) {
+  const { locale, toggleLocale, t } = useLocale();
+
   return (
     <div className="min-h-screen bg-bg text-slate-100 overflow-hidden">
       <header className="h-14 border-b border-white/10 bg-bg-2 flex items-center px-5 gap-6">
@@ -31,12 +35,19 @@ export default function MainLayout({ activePage, onNavigate, children }) {
                   : "text-white/45 hover:text-white/75"
               }`}
             >
-              {item.label}
+              {t(item.key)}
             </button>
           ))}
         </nav>
-        <div className="ml-auto text-[10px] uppercase tracking-widest text-white/35">
-          Cadastre Satellite AI
+        <div className="ml-auto">
+          <button
+            type="button"
+            onClick={toggleLocale}
+            aria-label={t("header.toggleLabel")}
+            className="rounded-full border border-white/10 bg-slate-900/70 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-white/80 transition hover:bg-white/10"
+          >
+            {locale === "en" ? "VI" : "EN"}
+          </button>
         </div>
       </header>
       <main className="h-[calc(100vh-3.5rem)] overflow-hidden">{children}</main>

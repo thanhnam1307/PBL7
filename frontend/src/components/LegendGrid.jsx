@@ -1,8 +1,10 @@
 import { useMapStore } from "../hooks/useMapStore";
 import { LAND_CLASSES } from "../constants/landClasses";
+import { useLocale } from "../locale";
 
 export default function LegendGrid() {
   const { activeClasses, toggleClass } = useMapStore();
+  const { t } = useLocale();
 
   return (
     <div className="grid grid-cols-2 gap-1">
@@ -24,7 +26,7 @@ export default function LegendGrid() {
               className="w-2.5 h-2.5 rounded-[3px] shrink-0"
               style={{ background: cls.color }}
             />
-            <span className="text-[11px] text-white/70">{cls.label}</span>
+            <span className="text-[11px] text-white/70">{t(`mapViewer.landClassLabels.${cls.id}`)}</span>
           </button>
         );
       })}
